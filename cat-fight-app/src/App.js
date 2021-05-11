@@ -18,7 +18,6 @@ class App extends Component {
       battleOver: false,
       playerTurn: true,
       loggedInUser: '',
-
     }
   }
 
@@ -84,6 +83,37 @@ class App extends Component {
   }
 }
 
+componentDidUpdate() {
+  if (this.state.battleOver === true) {
+    let winner
+    let loser
+    if (this.state.currentPlayerCat.power > this.state.currentAICat.power){
+      winner = this.state.currentPlayerCat
+      loser = this.state.currentAICat
+    } else {
+      winner = this.state.currentAICat
+      loser = this.state.currentPlayerCat
+    }
+    let score = (winner.power - loser.power) * 100
+    fetch(`http://localhost:3000/users/${this.state.loggedInUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        scores : [...this.state.loggedInUser.scores, score]
+      })
+    }
+     )
+     .then(res => res.json())
+     .then(updatedUser => 
+      this.setState({
+        loggedInUser : updatedUser,
+        users : this.state.users.map(user => user.id === updatedUser.id ? updatedUser : user)
+     }))
+  }
+}
+
 // checkBattleOver = () => {
 //   if (this.state.currentPlayerCat.power || this.state.currentAICat.power <= 0){
 //     this.setState({
@@ -99,7 +129,7 @@ class App extends Component {
       alert("User not found. Please register to continue.")
     } else {
       this.setState({
-        loggedInUser: username
+        loggedInUser: userExists
       })
     }
 
@@ -136,7 +166,7 @@ class App extends Component {
 
   render(){
 
-    
+    console.log(this.state.loggedInUser.scores)
     
     return(
       <Router >
