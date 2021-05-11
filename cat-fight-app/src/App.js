@@ -4,6 +4,8 @@ import Welcome from './Welcome'
 import Leaderboard from './Leaderboard'
 import CharacterList from './CharacterList'
 import Battleground from './Battleground'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 
 class App extends Component {
 
@@ -11,10 +13,13 @@ class App extends Component {
     super()
     this.state = {
       cats: [],
+      users: [],
       currentPlayerCat: {},
       currentAICat: {},
       battleOver: false,
-      playerTurn: true
+      playerTurn: true,
+      loggedInUser: '',
+
     }
   }
 
@@ -22,6 +27,10 @@ class App extends Component {
     fetch('http://localhost:3000/cats')
       .then(res => res.json())
       .then(catsArray => this.setState({cats: catsArray}))
+    
+    fetch('http://localhost:3000/users')
+      .then(res => res.json())
+      .then(usersArray => this.setState({users: usersArray}))
   }
 
   assignCat = (clickedCat) => {
@@ -37,32 +46,80 @@ class App extends Component {
   }
 
   catAttacc = () => {
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min) + min)
+    }
+
+    let playerMultiplier = getRandomInt(1, 5)
+    let AIMultiplier = getRandomInt(1, 5)
+
     if (this.state.currentAICat.power || this.state.currentPlayerCat.power > 0 ) {
-    let newAiPower = this.state.currentAICat.power - this.state.currentPlayerCat.attacc
-    let newPlayerPower = this.state.currentPlayerCat.power - this.state.currentAICat.attacc
+    let newAiPower = this.state.currentAICat.power - (this.state.currentPlayerCat.attacc * playerMultiplier)
+    let newPlayerPower = this.state.currentPlayerCat.power - (this.state.currentAICat.attacc * AIMultiplier)
     this.setState({
       currentAICat : {...this.state.currentAICat, power : newAiPower},
       playerTurn: !this.state.playerTurn
     })
+    console.log(newAiPower)
+    console.log(newPlayerPower)
     setTimeout(() => this.setState({
       currentPlayerCat : {...this.state.currentPlayerCat, power : newPlayerPower},
       playerTurn: !this.state.playerTurn
     }), 3000)
-    } else {
+    } else if (this.state.currentAICat.power || this.state.currentPlayerCat.power <= 0){
     this.setState({
       battleOver : true
     })
   }
   }
 
+  handleLogin = (username) => {
+    let userExists = this.state.users.find(user => user.name === username)
+    if (userExists === undefined){
+      alert("User not found. Please register to continue.")
+    } else {
+      this.setState({
+        loggedInUser: username
+      })
+    }
+  }
 
+  handleRegister = (username) => {
+    let userExists = this.state.users.find(user => user.name === username)
+    if (userExists !== undefined){
+      alert("This username is taken. Please try again.")
+    } else {
+      fetch('http://localhost:3000/users', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: username,
+          scores: []
+        })
+      })
+        .then(res => res.json())
+        .then(newUser => {
+          this.setState({
+            users: [...this.state.users, newUser]
+          })
+          alert("Registration successful. Please log in to continue.")
+        })
+    }
+  }
 
   render(){
-    console.log(this.state.playerTurn)
+
     return(
       <div>
         <Welcome />
-        {this.state.battleOver ? <Leaderboard/> : null}
+        <LoginForm handleLogin={this.handleLogin}/>
+        <RegisterForm handleRegister={this.handleRegister} />
+        <Leaderboard users={this.state.users}/>
+        {this.state.battleOver ? <Leaderboard users={this.state.users}/> : null}
         <CharacterList cats={this.state.cats} assignCat={this.assignCat}/>
         <Battleground currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} catAttacc={this.catAttacc} playerTurn={this.state.playerTurn}/>
       </div>
