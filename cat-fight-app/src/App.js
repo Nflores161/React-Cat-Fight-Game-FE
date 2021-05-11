@@ -45,35 +45,54 @@ class App extends Component {
     })
   }
 
-  catAttacc = () => {
-    function getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min) + min)
-    }
+    getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min)
+  }
 
-    let playerMultiplier = getRandomInt(1, 5)
-    let AIMultiplier = getRandomInt(1, 5)
+  playerCatAttacc = () => {
 
-    if (this.state.currentAICat.power || this.state.currentPlayerCat.power > 0 ) {
+    let playerMultiplier = this.getRandomInt(1, 5)
+    if (this.state.currentAICat.power > this.state.currentPlayerCat.attacc * playerMultiplier) {
     let newAiPower = this.state.currentAICat.power - (this.state.currentPlayerCat.attacc * playerMultiplier)
-    let newPlayerPower = this.state.currentPlayerCat.power - (this.state.currentAICat.attacc * AIMultiplier)
     this.setState({
       currentAICat : {...this.state.currentAICat, power : newAiPower},
       playerTurn: !this.state.playerTurn
     })
-    console.log(newAiPower)
-    console.log(newPlayerPower)
-    setTimeout(() => this.setState({
-      currentPlayerCat : {...this.state.currentPlayerCat, power : newPlayerPower},
-      playerTurn: !this.state.playerTurn
-    }), 3000)
-    } else if (this.state.currentAICat.power || this.state.currentPlayerCat.power <= 0){
+    setTimeout(() => this.computerCatAttacc(), 1000)
+    } else if (this.state.currentAICat.power <= this.state.currentPlayerCat.attacc * playerMultiplier){
     this.setState({
-      battleOver : true
+      currentAICat : {...this.state.currentAICat, power : 0},
+      battleOver: true
     })
   }
   }
+
+  computerCatAttacc = () => {
+    let AIMultiplier = this.getRandomInt(1, 5)
+    if (this.state.currentPlayerCat.power > this.state.currentAICat.attacc * AIMultiplier ) {
+    let newPlayerPower = this.state.currentPlayerCat.power - (this.state.currentAICat.attacc * AIMultiplier)
+    this.setState({
+      currentPlayerCat : {...this.state.currentPlayerCat, power : newPlayerPower},
+      playerTurn: !this.state.playerTurn
+    })
+  } else if (this.state.currentPlayerCat.power <= this.state.currentAICat.attacc * AIMultiplier){
+    this.setState({
+      currentPlayerCat : {...this.state.currentPlayerCat, power : 0},
+      battleOver: true
+    })
+  }
+}
+
+// checkBattleOver = () => {
+//   if (this.state.currentPlayerCat.power || this.state.currentAICat.power <= 0){
+//     this.setState({
+//       battleOver : true
+//     })
+//     alert("GAME OVER RETURN TO HOOMAN")
+//   }
+// }
 
   handleLogin = (username) => {
     let userExists = this.state.users.find(user => user.name === username)
@@ -113,15 +132,18 @@ class App extends Component {
 
   render(){
 
+    
+    
     return(
       <div>
+        {this.state.battleOver ? console.log("GAME OVER RETURN TO HOOMAN") : null}
         <Welcome />
         <LoginForm handleLogin={this.handleLogin}/>
         <RegisterForm handleRegister={this.handleRegister} />
         <Leaderboard users={this.state.users}/>
         {this.state.battleOver ? <Leaderboard users={this.state.users}/> : null}
         <CharacterList cats={this.state.cats} assignCat={this.assignCat}/>
-        <Battleground currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} catAttacc={this.catAttacc} playerTurn={this.state.playerTurn}/>
+        <Battleground currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn}/>
       </div>
     )
   }

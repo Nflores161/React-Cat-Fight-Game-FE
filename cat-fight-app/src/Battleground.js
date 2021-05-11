@@ -11,7 +11,7 @@ class Battleground extends Component {
                 <h2>BattleGround</h2>
                 <BattleCard cat={this.props.currentAICat}/>
                 <BattleCard cat={this.props.currentPlayerCat}/>
-                {this.props.playerTurn === true ? (<button onClick={() => this.props.catAttacc()}>ATTACC!!</button>) : <p>PROTECC</p>}
+                {this.props.playerTurn === true ? (<button onClick={() => this.props.playerCatAttacc()}>ATTACC!!</button>) : <p>PROTECC</p>}
             </div>
         )
     }
