@@ -7,7 +7,7 @@ class CharacterList extends Component {
         return(
             <div>
                 <h3>Character List</h3>
-                {this.props.cats.map(cat => <CharacterCard key={cat.id} cat={cat} assignCat={this.props.assignCat}/>)}
+                {this.props.cats.map(cat => <CharacterCard key={cat.id} cat={cat} assignCat={this.props.assignCat} {...this.props.routerProps}/>)}
             </div>
         )
     }

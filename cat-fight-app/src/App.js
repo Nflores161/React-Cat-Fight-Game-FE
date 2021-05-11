@@ -4,8 +4,7 @@ import Welcome from './Welcome'
 import Leaderboard from './Leaderboard'
 import CharacterList from './CharacterList'
 import Battleground from './Battleground'
-import LoginForm from './LoginForm'
-import RegisterForm from './RegisterForm'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 class App extends Component {
 
@@ -103,6 +102,11 @@ class App extends Component {
         loggedInUser: username
       })
     }
+
+  }
+
+  handleLogout = () => {
+    this.setState({loggedInUser: ''})
   }
 
   handleRegister = (username) => {
@@ -117,7 +121,7 @@ class App extends Component {
         },
         body: JSON.stringify({
           name: username,
-          scores: []
+          scores: [0]
         })
       })
         .then(res => res.json())
@@ -135,16 +139,25 @@ class App extends Component {
     
     
     return(
-      <div>
-        {this.state.battleOver ? console.log("GAME OVER RETURN TO HOOMAN") : null}
-        <Welcome />
-        <LoginForm handleLogin={this.handleLogin}/>
-        <RegisterForm handleRegister={this.handleRegister} />
-        <Leaderboard users={this.state.users}/>
-        {this.state.battleOver ? <Leaderboard users={this.state.users}/> : null}
-        <CharacterList cats={this.state.cats} assignCat={this.assignCat}/>
-        <Battleground currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn}/>
-      </div>
+      <Router >
+        <div>
+          {this.state.battleOver ? console.log("GAME OVER RETURN TO HOOMAN") : null}
+
+          <Route exact path="/" render={(routerProps) => <Welcome {...routerProps} handleLogin={this.handleLogin} handleRegister={this.handleRegister} users={this.state.users} loggedInUser={this.state.loggedInUser} handleLogout={this.handleLogout}/>} />
+          
+          <Route exact path="/leaderboard" render={() => <Leaderboard users={this.state.users}/>} />
+
+          {this.state.battleOver ? (
+          <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} />
+           
+           ) : null}
+
+          <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat}/>} />
+
+          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn}/>} />
+
+        </div>
+      </Router >
     )
   }
 }

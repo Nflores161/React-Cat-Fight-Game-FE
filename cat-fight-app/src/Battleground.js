@@ -3,6 +3,11 @@ import BattleCard from './BattleCard'
 
 class Battleground extends Component {
 
+    // moveToLeaderboard = () => {
+    //     if(this.props.battleOver === true) {
+    //         this.props.history.push("/leaderboard")
+    //     }
+    // }
 
     render(){
     console.log(this.props)
@@ -12,6 +17,7 @@ class Battleground extends Component {
                 <BattleCard cat={this.props.currentAICat}/>
                 <BattleCard cat={this.props.currentPlayerCat}/>
                 {this.props.playerTurn === true ? (<button onClick={() => this.props.playerCatAttacc()}>ATTACC!!</button>) : <p>PROTECC</p>}
+                {this.props.battleOver === true ? this.props.history.push("/leaderboard") : null}
             </div>
         )
     }
