@@ -12,7 +12,9 @@ class App extends Component {
     this.state = {
       cats: [],
       currentPlayerCat: {},
-      currentAICat: {}
+      currentAICat: {},
+      battleOver: false,
+      playerTurn: true
     }
   }
 
@@ -34,15 +36,35 @@ class App extends Component {
     })
   }
 
+  catAttacc = () => {
+    if (this.state.currentAICat.power || this.state.currentPlayerCat.power > 0 ) {
+    let newAiPower = this.state.currentAICat.power - this.state.currentPlayerCat.attacc
+    let newPlayerPower = this.state.currentPlayerCat.power - this.state.currentAICat.attacc
+    this.setState({
+      currentAICat : {...this.state.currentAICat, power : newAiPower},
+      playerTurn: !this.state.playerTurn
+    })
+    setTimeout(() => this.setState({
+      currentPlayerCat : {...this.state.currentPlayerCat, power : newPlayerPower},
+      playerTurn: !this.state.playerTurn
+    }), 3000)
+    } else {
+    this.setState({
+      battleOver : true
+    })
+  }
+  }
+
+
+
   render(){
-    console.log(this.state.currentPlayerCat)
-    console.log(this.state.currentAICat)
+    console.log(this.state.playerTurn)
     return(
       <div>
         <Welcome />
-        <Leaderboard />
+        {this.state.battleOver ? <Leaderboard/> : null}
         <CharacterList cats={this.state.cats} assignCat={this.assignCat}/>
-        <Battleground cats={this.state.cats}/>
+        <Battleground currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} catAttacc={this.catAttacc} playerTurn={this.state.playerTurn}/>
       </div>
     )
   }
@@ -50,24 +72,4 @@ class App extends Component {
 
 export default App;
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 

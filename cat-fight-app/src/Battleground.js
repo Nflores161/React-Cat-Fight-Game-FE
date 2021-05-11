@@ -1,13 +1,17 @@
 import React, {Component} from 'react'
-// import CharacterCard from './CharacterCard'
+import BattleCard from './BattleCard'
 
 class Battleground extends Component {
 
+
     render(){
+    console.log(this.props)
         return(
             <div>
                 <h2>BattleGround</h2>
-                {/* {this.props.cats.map(cat => <CharacterCard key={cat.id} cat={cat}/>)} */}
+                <BattleCard cat={this.props.currentAICat}/>
+                <BattleCard cat={this.props.currentPlayerCat}/>
+                {this.props.playerTurn === true ? (<button onClick={() => this.props.catAttacc()}>ATTACC!!</button>) : <p>PROTECC</p>}
             </div>
         )
     }
