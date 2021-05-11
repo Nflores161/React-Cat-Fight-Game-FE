@@ -5,6 +5,7 @@ import Leaderboard from './Leaderboard'
 import CharacterList from './CharacterList'
 import Battleground from './Battleground'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import GameOver from './GameOver'
 
 class App extends Component {
 
@@ -18,9 +19,12 @@ class App extends Component {
       battleOver: false,
       playerTurn: true,
       loggedInUser: '',
+      winner: {}
     }
   }
 
+  // initial GET request for cats array and users array
+  // used to set state
   componentDidMount(){
     fetch('http://localhost:3000/cats')
       .then(res => res.json())
@@ -31,6 +35,8 @@ class App extends Component {
       .then(usersArray => this.setState({users: usersArray}))
   }
 
+  // assigns cat as user's warrior when "Choose Your Warrior" button
+  // is clicked in CharacterList
   assignCat = (clickedCat) => {
     let playerID = clickedCat.id
     let computerID
@@ -42,13 +48,19 @@ class App extends Component {
       currentAICat: this.state.cats.find(cat => cat.id === computerID)
     })
   }
-
+  
+  // generates random integer between 1 and 5 to be used as attack multiplier during battle
     getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min)
   }
 
+  // invoked via "Attacc" button
+  // subtracts player cat's attacc strength from opponent cat's power
+  // then calls reverse function in a setTimeout for computer's turn 
+  // toggles playerTurn state between true and false to determine turns
+  // sets battleOver state to true when one player is defeated
   playerCatAttacc = () => {
 
     let playerMultiplier = this.getRandomInt(1, 5)
@@ -67,6 +79,7 @@ class App extends Component {
   }
   }
 
+  // similar function for computer's turn (see above notes)
   computerCatAttacc = () => {
     let AIMultiplier = this.getRandomInt(1, 5)
     if (this.state.currentPlayerCat.power > this.state.currentAICat.attacc * AIMultiplier ) {
@@ -83,46 +96,55 @@ class App extends Component {
   }
 }
 
+// checks if battle is over (via battleOver state)
+// if user wins, sends PATCH request with updated scores array and updates users state
+// updates battleOver, loggedInUser, and winner state
 componentDidUpdate() {
+  let winner
+  let loser
   if (this.state.battleOver === true) {
-    let winner
-    let loser
     if (this.state.currentPlayerCat.power > this.state.currentAICat.power){
       winner = this.state.currentPlayerCat
       loser = this.state.currentAICat
-    } else {
-      winner = this.state.currentAICat
-      loser = this.state.currentPlayerCat
+      let score = (winner.power - loser.power) * 100
+      fetch(`http://localhost:3000/users/${this.state.loggedInUser.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+          scores : [...this.state.loggedInUser.scores, score],
+        })
+      }
+       )
+       .then(res => res.json())
+       .then(updatedUser => 
+        this.setState({
+          loggedInUser : updatedUser,
+          users : this.state.users.map(user => user.id === updatedUser.id ? updatedUser : user),
+          battleOver: false,
+          winner: updatedUser
+       }))
+    } else if (this.state.currentAICat.power > this.state.currentPlayerCat.power) {
+        winner = this.state.currentAICat
+        loser = this.state.currentPlayerCat
+        let score = (winner.power - loser.power) * 100
+        this.computerWins(score)
     }
-    let score = (winner.power - loser.power) * 100
-    fetch(`http://localhost:3000/users/${this.state.loggedInUser.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type" : "application/json"
-      },
-      body: JSON.stringify({
-        scores : [...this.state.loggedInUser.scores, score]
-      })
-    }
-     )
-     .then(res => res.json())
-     .then(updatedUser => 
-      this.setState({
-        loggedInUser : updatedUser,
-        users : this.state.users.map(user => user.id === updatedUser.id ? updatedUser : user)
-     }))
   }
 }
 
-// checkBattleOver = () => {
-//   if (this.state.currentPlayerCat.power || this.state.currentAICat.power <= 0){
-//     this.setState({
-//       battleOver : true
-//     })
-//     alert("GAME OVER RETURN TO HOOMAN")
-//   }
-// }
+// helper function to set winner state if computer wins
+  computerWins = (score) => {
+    this.setState({
+      winner: {
+        name: "Computer",
+        score: score
+    }})
+  }
 
+  // sets loggedInUser state when user logs in
+  // checks that user exists in backend
   handleLogin = (username) => {
     let userExists = this.state.users.find(user => user.name === username)
     if (userExists === undefined){
@@ -135,15 +157,20 @@ componentDidUpdate() {
 
   }
 
+  // clears out loggedInUser state
   handleLogout = () => {
     this.setState({loggedInUser: ''})
   }
 
+  // checks if username exists in database
+  // if not, registers new user via POST request to backend
   handleRegister = (username) => {
     let userExists = this.state.users.find(user => user.name === username)
     if (userExists !== undefined){
       alert("This username is taken. Please try again.")
-    } else {
+    } else if (username.length <= 0) {
+      alert("Please enter valid username.")
+    } else if (userExists === undefined && username.length > 0) {
       fetch('http://localhost:3000/users', {
         method: "POST",
         headers: {
@@ -177,10 +204,9 @@ componentDidUpdate() {
           
           <Route exact path="/leaderboard" render={() => <Leaderboard users={this.state.users}/>} />
 
-          {this.state.battleOver ? (
-          <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} />
-           
-           ) : null}
+          <Route exact path="/gameover" render={() => <GameOver winner={this.state.winner}/>} />
+
+          {/* <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} /> */}
 
           <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat}/>} />
 
