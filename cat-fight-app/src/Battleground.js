@@ -10,22 +10,22 @@ class Battleground extends Component {
         return(
             <Container>
             <div>
-                <h2>BattleGround</h2>
-                <Row>
+                <h2 className="headerText">BattleGround</h2>
+                <Row sm={2}>
                     <Col>
                     </Col>
                     <Col className="battlecolumn">
                        <BattleCard id="computerCat" cat={this.props.currentAICat}/>
                     </Col>
                 </Row>
-                <Row>
+                <Row sm={2}>
                     <Col className="battleColumn">
                         <BattleCard id="playerCat" cat={this.props.currentPlayerCat}/>
                     </Col>
                     <Col>
                     </Col>
                 </Row>
-                <Row>
+                <Row sm={2}>
                     <Col className="buttonColumn">
                     {this.props.playerTurn === true ? (<button className="attaccButtons" onClick={() => this.props.playerCatAttacc()}>ATTACC!!</button>) : <p>PROTECC</p>}
                     {(this.props.playerTurn === true && this.props.superAttaccUsed === false) ? (<button className="attaccButtons" onClick={() => this.props.superAttacc()}>SuperATTACC</button>) : null}

@@ -1,7 +1,7 @@
 * {
   background-color: black;
   color: whitesmoke;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .welcome {
@@ -11,6 +11,8 @@
 .headerText {
   font-family: 'Press Start 2P', cursive;
   color: rgb(240, 9, 220);
+  text-align: center;
+  margin: 2em;
 }
 
 /*Card Styling*/
@@ -26,8 +28,8 @@
 }
 
 .battleCardImage {
-  width: 10em;
-  height: 10em;
+  width: 7em;
+  height: 7em;
   object-fit: contain;
 }
 
@@ -82,4 +84,51 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+/*LeaderBoard*/
+
+.leaderHeader {
+  font-family: 'Press Start 2P', cursive;
+  color: rgb(148, 10, 136);
+  text-align: center;
+  margin: 1em;
+}
+
+.gameOverHeader {
+  font-family: 'Press Start 2P', cursive;
+  color: rgb(240, 9, 220);
+  text-align: center;
+  margin: .5em;
+  font-size:6em;
+}
+
+table {
+  font-family: 'Press Start 2P', cursive;
+}
+
+th {
+  font-size: x-large;
+}
+
+td {
+  font-size: large;
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive; 
+}
+
+#playAgainBtn {
+  max-width: 30%;
+  align-self: center;
+  margin: 3em;
+}
+
+.gameResultMsg {
+  font-family: 'Reggae One', cursive;
 }

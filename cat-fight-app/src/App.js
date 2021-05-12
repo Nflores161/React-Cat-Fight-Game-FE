@@ -239,9 +239,9 @@ componentDidUpdate() {
           
           <Route exact path="/leaderboard" render={() => <Leaderboard users={this.state.users}/>} />
 
-          <Route exact path="/gameover" render={(routerProps) => <GameOver {...routerProps} winner={this.state.winner} handlePlayAgain={this.handlePlayAgain}/>} />
+          <Route exact path="/gameover" render={(routerProps) => <GameOver {...routerProps} winner={this.state.winner} handlePlayAgain={this.handlePlayAgain} users={this.state.users}/>} />
 
-          <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} />
+          {/* <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} /> */}
 
           <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat}/>} />
 

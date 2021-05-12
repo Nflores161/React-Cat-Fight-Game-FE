@@ -1,12 +1,13 @@
 import React from 'react'
 
-const LeaderboardStat = ({user}) => {
+const LeaderboardStat = ({user, rank}) => {
 
     return(
-        <div>
-            <h3>{user.name}</h3>
-            <p>{Math.max(...user.scores)}</p>
-        </div>
+        <tr>
+            <td>{rank}</td>
+            <td>{user.name}</td>
+            <td>{Math.max(...user.scores)}</td>
+        </tr>
     )
 }
 

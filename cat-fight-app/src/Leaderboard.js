@@ -1,4 +1,5 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
 import LeaderboardStat from './LeaderboardStat'
 
 const Leaderboard = ({users}) => {
@@ -12,10 +13,17 @@ const Leaderboard = ({users}) => {
     })
     console.log()
     return(
-        <div>
-            <h2>Leaderboard</h2>
-            {sortedUsers.map(user  => <LeaderboardStat user={user} key={user.id}/>)}
-        </div>
+        <Container className="tableContainer">
+            <h2 className="leaderHeader">Leaderboard</h2>
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr> 
+                {sortedUsers.map((user, index)  => <LeaderboardStat rank={index + 1} user={user} key={user.id}/>)}
+            </table>
+        </Container>
     )
 }
 

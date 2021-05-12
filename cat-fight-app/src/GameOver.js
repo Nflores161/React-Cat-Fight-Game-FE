@@ -1,16 +1,21 @@
 import React from 'react'
+import Leaderboard from './Leaderboard'
+import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
 const GameOver = (props) => {
 
     return(
-        <div>
+        <Container className="tableContainer">
+            <h1 className="gameOverHeader">GAME OVER</h1>
             {console.log(props.winner)}
-            {(props.winner.name !== undefined && props.winner.name !=="Computer") ? <h1>Congratulations, {props.winner.name}, you won!</h1> : (props.winner.name !==undefined && props.winner.name === "Computer") ? <h1>Looks like the AI won this round. It must be learning...</h1> : null}
-            <button onClick ={() => {
+            {(props.winner.name !== undefined && props.winner.name !=="Computer") ? <h1 className="gameResultMsg">Congratulations, {props.winner.name}, you won!</h1> : (props.winner.name !==undefined && props.winner.name === "Computer") ? <h1 className="gameResultMsg">Looks like the AI won this round. It must be learning...</h1> : null}
+            <Leaderboard users={props.users}/>
+            <Button id="playAgainBtn" variant="outline-light" onClick ={() => {
                 props.handlePlayAgain()
                 props.history.push("/characterlist")
-            }}>Play Again</button>    
-        </div>
+            }}>Play Again</Button>    
+        </Container>
     )
 
 }
