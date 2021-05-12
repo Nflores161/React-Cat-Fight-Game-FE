@@ -19,7 +19,8 @@ class App extends Component {
       battleOver: false,
       playerTurn: true,
       loggedInUser: '',
-      winner: {}
+      winner: {},
+      superAttaccUsed: false
     }
   }
 
@@ -96,14 +97,38 @@ class App extends Component {
   }
 }
 
+// Creates a Super Attacc with higher damages that also inflicts damage on users power
+superAttacc = () => {
+    alert("WARNING: USE WITH CAUTION - SUPER ATTACC WILL INFLICT 20 DAMAGE TO OPPONENT AS WELL AS DEPLETE YOUR WARRIORS POWER")
+    let newPlayerDamage = this.getRandomInt(1,4) * 5
+    console.log(newPlayerDamage)
+    if (this.state.currentAICat.power > 20) {  
+    let newAiPower = this.state.currentAICat.power - 20
+    this.setState({
+      superAttaccUsed: true,
+      currentPlayerCat : {...this.state.currentPlayerCat, power : this.state.currentPlayerCat.power - newPlayerDamage},
+      currentAICat : {...this.state.currentAICat, power : newAiPower},
+      playerTurn: !this.state.playerTurn
+    })
+    setTimeout(() => this.computerCatAttacc(), 1000)
+    } else if (this.state.currentAICat.power <= 20){
+    this.setState({
+      superAttaccUsed: true,
+      currentPlayerCat : {...this.state.currentPlayerCat, power : this.state.currentPlayerCat.power - newPlayerDamage},
+      currentAICat : {...this.state.currentAICat, power : 0},
+      battleOver: true
+    })
+  }
+}
+
 // checks if battle is over (via battleOver state)
 // if user wins, sends PATCH request with updated scores array and updates users state
 // updates battleOver, loggedInUser, and winner state
 componentDidUpdate() {
   let winner
   let loser
-  if (this.state.battleOver === true) {
-    if (this.state.currentPlayerCat.power > this.state.currentAICat.power){
+  if (this.state.battleOver === true && this.state.currentPlayerCat.power > this.state.currentAICat.power) {
+    
       winner = this.state.currentPlayerCat
       loser = this.state.currentAICat
       let score = (winner.power - loser.power) * 100
@@ -125,18 +150,18 @@ componentDidUpdate() {
           battleOver: false,
           winner: updatedUser
        }))
-    } else if (this.state.currentAICat.power > this.state.currentPlayerCat.power) {
+    } else if (this.state.battleOver === true && this.state.currentAICat.power > this.state.currentPlayerCat.power) {
         winner = this.state.currentAICat
         loser = this.state.currentPlayerCat
         let score = (winner.power - loser.power) * 100
         this.computerWins(score)
-    }
   }
 }
 
 // helper function to set winner state if computer wins
   computerWins = (score) => {
     this.setState({
+      battleOver: false,
       winner: {
         name: "Computer",
         score: score
@@ -193,8 +218,6 @@ componentDidUpdate() {
 
   render(){
 
-    console.log(this.state.loggedInUser.scores)
-    
     return(
       <Router >
         <div>
@@ -210,7 +233,7 @@ componentDidUpdate() {
 
           <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat}/>} />
 
-          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn}/>} />
+          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.superAttaccUsed}/>} />
 
         </div>
       </Router >
