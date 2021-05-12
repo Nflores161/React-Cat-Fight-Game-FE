@@ -5,7 +5,7 @@ import { Button, Card } from 'react-bootstrap'
 const CharacterCard = (props) => {
     return(
         <Card>
-            <Card.Img src={props.cat.image} alt={props.cat.name} width=".5em"/>
+            <Card.Img className="catCardImage" src={props.cat.image} alt={props.cat.name} />
             <Card.Body className="catCardBody">
             <Card.Title>{props.cat.name}</Card.Title>
             <Card.Text>Cat Warrior TBD</Card.Text>
