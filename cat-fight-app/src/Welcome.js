@@ -1,6 +1,7 @@
 import React from 'react'
 import UserForm from './UserForm'
 import Leaderboard from './Leaderboard'
+import Button from 'react-bootstrap/Button'
 
 const Welcome = (props) => {
 
@@ -12,11 +13,11 @@ const Welcome = (props) => {
             (<UserForm handleLogin={props.handleLogin} handleRegister={props.handleRegister}/>
             )}
 
-            <button onClick={() => {
+            <Button variant="primary" onClick={() => {
                 if(props.loggedInUser !== '') {
                 props.history.push("/characterlist")
                 } else return alert("Please log in to continue.")
-            }}>Fight!</button>
+            }}>Fight!</Button>{' '}
 
             <Leaderboard users={props.users} />
         </div>

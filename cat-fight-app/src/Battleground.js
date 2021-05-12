@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import BattleCard from './BattleCard'
-import SuperAttaccBtn from './SuperAtaccBtn'
-
 
 class Battleground extends Component {
 
@@ -21,7 +19,7 @@ class Battleground extends Component {
                 {this.props.playerTurn === true ? (<button onClick={() => this.props.playerCatAttacc()}>ATTACC!!</button>) : <p>PROTECC</p>}
                 {this.props.battleOver === true ? this.props.history.push("/gameover") : null}
 
-                <SuperAttaccBtn superAttacc={this.props.superAttacc} playerTurn={this.props.playerTurn} superAttaccUsed={this.props.superAttaccUsed}/>
+                {(this.props.playerTurn === true && this.props.superAttaccUsed === false) ? (<button onClick={() => this.props.superAttacc()}>SuperATTACC</button>) : null}
             </div>
         )
     }

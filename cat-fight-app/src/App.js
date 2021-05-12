@@ -216,6 +216,18 @@ componentDidUpdate() {
     }
   }
 
+  // resets game-related state so currently-logged-in player can play a new game
+  handlePlayAgain = () => {
+    this.setState({
+      currentPlayerCat: {},
+      currentAICat: {},
+      battleOver: false,
+      playerTurn: true,
+      winner: {},
+      superAttaccUsed: false
+    })
+  }
+
   render(){
 
     return(
@@ -227,13 +239,13 @@ componentDidUpdate() {
           
           <Route exact path="/leaderboard" render={() => <Leaderboard users={this.state.users}/>} />
 
-          <Route exact path="/gameover" render={() => <GameOver winner={this.state.winner}/>} />
+          <Route exact path="/gameover" render={(routerProps) => <GameOver {...routerProps} winner={this.state.winner} handlePlayAgain={this.handlePlayAgain}/>} />
 
-          {/* <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} /> */}
+          <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} />
 
           <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat}/>} />
 
-          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.superAttaccUsed}/>} />
+          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed}/>} />
 
         </div>
       </Router >
