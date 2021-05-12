@@ -16,11 +16,13 @@ const Leaderboard = ({users}) => {
         <Container className="tableContainer">
             <h2 className="leaderHeader">Leaderboard</h2>
             <table>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr> 
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr> 
+                </thead>
                 {sortedUsers.map((user, index)  => <LeaderboardStat rank={index + 1} user={user} key={user.id}/>)}
             </table>
         </Container>

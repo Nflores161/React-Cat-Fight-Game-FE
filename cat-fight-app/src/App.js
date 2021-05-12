@@ -20,7 +20,8 @@ class App extends Component {
       playerTurn: true,
       loggedInUser: '',
       winner: {},
-      superAttaccUsed: false
+      superAttaccUsed: false,
+      showLogin: true
     }
   }
 
@@ -235,7 +236,7 @@ componentDidUpdate() {
         <div>
           {this.state.battleOver ? console.log("GAME OVER RETURN TO HOOMAN") : null}
 
-          <Route exact path="/" render={(routerProps) => <Welcome {...routerProps} handleLogin={this.handleLogin} handleRegister={this.handleRegister} users={this.state.users} loggedInUser={this.state.loggedInUser} handleLogout={this.handleLogout}/>} />
+          <Route exact path="/" render={(routerProps) => <Welcome {...routerProps} handleLogin={this.handleLogin} handleRegister={this.handleRegister} users={this.state.users} loggedInUser={this.state.loggedInUser} handleLogout={this.handleLogout}/>} showLogin={this.state.showLogin}/>
           
           <Route exact path="/leaderboard" render={() => <Leaderboard users={this.state.users}/>} />
 

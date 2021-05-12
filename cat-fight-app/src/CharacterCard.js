@@ -9,10 +9,10 @@ const CharacterCard = (props) => {
             <Card.Body className="catCardBody">
             <Card.Title>{props.cat.name}</Card.Title>
             <Card.Text>Cat Warrior TBD</Card.Text>
-            <Button variant="primary bottom" onClick={() => {
+            <Button variant="outline-light" onClick={() => {
                 props.assignCat(props.cat)
                 props.history.push("/battleground")
-            }}>Choose Your Warrior</Button>
+            }}>Fight!</Button>
             </Card.Body>
         </Card>
     )

@@ -5,7 +5,7 @@ const BattleCard = (props) => {
 
     return(
         <Card id={(props.id === "computerCat") ? "computerCat" : (props.id === "playerCat") ? "playerCat" : null}>
-            <Card.Img className="battleCarImage" class src={props.cat.image} alt={props.cat.name} width=".5em"/>
+            <Card.Img className="battleCardImage" class src={props.cat.image} alt={props.cat.name} width=".5em"/>
             <Card.Body className="catCardBody">
                 <Card.Title>{props.cat.name}</Card.Title>
                 <Card.Text>Cat Warrior TBD</Card.Text>

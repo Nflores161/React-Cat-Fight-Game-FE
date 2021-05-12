@@ -19,6 +19,7 @@
 
 .catCardBody {
   margin-top: auto;
+  text-align: center;
 }
 
 .catCardImage {
@@ -28,14 +29,15 @@
 }
 
 .battleCardImage {
-  width: 7em;
-  height: 7em;
-  object-fit: contain;
+  width: 10em;
+  height: 20em;
+  object-fit: cover;
 }
 
 .battleCard {
   max-width: 70%;
   margin: auto;
+  text-align: center;
 }
 
 .healthBarMaster {
@@ -131,4 +133,17 @@ td {
 
 .gameResultMsg {
   font-family: 'Reggae One', cursive;
+}
+
+#catScratchPic {
+  height: 15em;
+  margin-bottom: 5em;
+}
+
+#loginContainer {
+  text-align: right;
+}
+
+#loginButton {
+  text-align: right;
 }
