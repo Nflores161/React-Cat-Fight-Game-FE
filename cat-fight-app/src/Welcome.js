@@ -46,7 +46,7 @@ const Welcome = (props) => {
             </Row>
             <Row>
                 <Col>
-            <Leaderboard users={props.users} />
+            <Leaderboard users={props.users} loggedInUser={props.loggedInUser}/>
                 </Col> 
             </Row>    
             

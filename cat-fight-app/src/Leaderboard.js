@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import LeaderboardStat from './LeaderboardStat'
 
-const Leaderboard = ({users}) => {
+const Leaderboard = ({users, loggedInUser}) => {
 
     let sortedUsers = users.sort((userA, userB) => {
         if (Math.max(...userA.scores) > Math.max(...userB.scores)) {
@@ -11,7 +11,7 @@ const Leaderboard = ({users}) => {
             return 1
         } else return 0
     })
-    console.log()
+    console.log(loggedInUser)
     return(
         <Container className="tableContainer">
             <h2 className="leaderHeader">Leaderboard</h2>
@@ -23,7 +23,7 @@ const Leaderboard = ({users}) => {
                         <th>Score</th>
                     </tr> 
                 </thead>
-                {sortedUsers.map((user, index)  => <LeaderboardStat rank={index + 1} user={user} key={user.id}/>)}
+                {sortedUsers.map((user, index)  => <LeaderboardStat loggedInUser={loggedInUser} rank={index + 1} user={user} key={user.id}/>)}
             </table>
         </Container>
     )

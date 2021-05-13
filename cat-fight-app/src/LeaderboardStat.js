@@ -1,13 +1,13 @@
 import React from 'react'
 
-const LeaderboardStat = ({user, rank}) => {
-
+const LeaderboardStat = ({user, rank, loggedInUser}) => {
+    console.log(loggedInUser)
     return(
         <tbody>
             <tr>
-                <td>{rank}</td>
-                <td>{user.name}</td>
-                <td>{Math.max(...user.scores)}</td>
+                <td className={(loggedInUser.name !== undefined && loggedInUser.name === user.name) ? "userScoreHighlight" : null }>{rank}</td>
+                <td className={(loggedInUser.name !== undefined && loggedInUser.name === user.name) ? "userScoreHighlight" : null }>{user.name}</td>
+                <td className={(loggedInUser.name !== undefined && loggedInUser.name === user.name) ? "userScoreHighlight" : null }>{Math.max(...user.scores)}</td>
             </tr>
         </tbody>
     )

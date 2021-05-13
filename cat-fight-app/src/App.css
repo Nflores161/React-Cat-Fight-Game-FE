@@ -147,3 +147,13 @@ td {
 #loginButton {
   text-align: right;
 }
+
+.userScoreHighlight {
+  color: rgb(0, 255, 136);
+}
+
+#instructionBtn {
+  display:flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}

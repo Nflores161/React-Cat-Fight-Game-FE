@@ -1,5 +1,4 @@
 import React from 'react'
-import { propTypes } from 'react-bootstrap/esm/Image'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import LoginForm from './LoginForm'
