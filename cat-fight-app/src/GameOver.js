@@ -15,10 +15,14 @@ const GameOver = (props) => {
             <Button id="playAgainBtn" variant="outline-light" onClick ={() => {
                 props.handlePlayAgain()
                 props.history.push("/characterlist")
+                props.battleSong.pause()
+                props.playTheme()
             }}>Play Again</Button>    
             <Button id="goHomeBtn" variant="outline-light" onClick ={() => {
                 props.handlePlayAgain()
                 props.history.push("/")
+                props.battleSong.pause()
+                props.playTheme()
             }}>Go To Home Page</Button>    
         </Container>
     )

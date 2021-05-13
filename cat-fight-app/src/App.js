@@ -6,6 +6,8 @@ import CharacterList from './CharacterList'
 import Battleground from './Battleground'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import GameOver from './GameOver'
+import ThemeSong from './Cat-Scratcher-Main.mp3'
+import BattleSong from './Cat-Battle-Song.mp3'
 
 class App extends Component {
 
@@ -24,7 +26,29 @@ class App extends Component {
       showLogin: true,
       battleStarted: false
     }
+    this.themeSong = new Audio(ThemeSong);
+    this.themeSong.addEventListener("ended", () => {
+      this.themeSong.play()
+    })
+    this.battleSong = new Audio(BattleSong);
+    this.battleSong.addEventListener("ended", () => {
+      this.battleSong.play()
+    })
   }
+
+  playTheme = () => {
+    if (this.state.cats.length > 0) {
+    return this.themeSong.play()
+    }
+  }
+
+  playBattleSong = () => {
+    if (this.state.cats.length > 0){
+      return this.battleSong.play()
+    }
+  }
+
+  
 
   // initial GET request for cats array and users array
   // used to set state
@@ -36,6 +60,7 @@ class App extends Component {
     fetch('http://localhost:3000/users')
       .then(res => res.json())
       .then(usersArray => this.setState({users: usersArray}))
+      this.playTheme()
   }
 
   // assigns cat as user's warrior when "Choose Your Warrior" button
@@ -253,15 +278,15 @@ componentDidUpdate() {
         <div>
           {this.state.battleOver ? console.log("GAME OVER RETURN TO HOOMAN") : null}
 
-          <Route exact path="/" render={(routerProps) => <Welcome {...routerProps} handleLogin={this.handleLogin} handleRegister={this.handleRegister} users={this.state.users} loggedInUser={this.state.loggedInUser} handleLogout={this.handleLogout}/>} showLogin={this.state.showLogin}/>
+          <Route exact path="/" render={(routerProps) => <Welcome {...routerProps} handleLogin={this.handleLogin} handleRegister={this.handleRegister} users={this.state.users} loggedInUser={this.state.loggedInUser} handleLogout={this.handleLogout} playTheme={this.playTheme}/>} showLogin={this.state.showLogin} />
           
           <Route exact path="/leaderboard" render={() => <Leaderboard users={this.state.users} loggedInUser={this.state.loggedInUser}/>}/>
 
-          <Route exact path="/gameover" render={(routerProps) => <GameOver {...routerProps} winner={this.state.winner} handlePlayAgain={this.handlePlayAgain} users={this.state.users} loggedInUser={this.state.loggedInUser}/>}/>
+          <Route exact path="/gameover" render={(routerProps) => <GameOver {...routerProps} winner={this.state.winner} handlePlayAgain={this.handlePlayAgain} users={this.state.users} loggedInUser={this.state.loggedInUser} battleSong={this.battleSong} playTheme={this.playTheme}/>}/>
 
           {/* <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} /> */}
 
-          <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat}/>} />
+          <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat} playBattleSong={this.playBattleSong} themeSong={this.themeSong}/>} />
 
           <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed} hissDefense={this.hissDefense} battleStarted={this.state.battleStarted}/>} />
 

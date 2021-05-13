@@ -13,6 +13,8 @@ const CharacterCard = (props) => {
                 <Button variant="outline-light" onClick={() => {
                     props.assignCat(props.cat)
                     props.history.push("/battleground")
+                    props.themeSong.pause()
+                    props.playBattleSong()
                 }}>Fight!</Button>
                 </Card.Body>
             </Card>

@@ -13,7 +13,7 @@ class CharacterList extends Component {
                 
                 
                 <Row lg={3}>
-                    {this.props.cats.map(cat => <CharacterCard key={cat.id} cat={cat} assignCat={this.props.assignCat} {...this.props.routerProps}/>)}
+                    {this.props.cats.map(cat => <CharacterCard key={cat.id} cat={cat} assignCat={this.props.assignCat} {...this.props.routerProps} playBattleSong={this.props.playBattleSong} themeSong={this.props.themeSong}/>)}
                 </Row>
                 
                 
