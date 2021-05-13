@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row'
 import {useState} from 'react'
 import LoginModal from './LoginModal'
 import CatScratch from './Cat-Scratch.png'
+import UserStats from './UserStats'
 
 const Welcome = (props) => {
 
@@ -48,6 +49,11 @@ const Welcome = (props) => {
                 <Col>
             <Leaderboard users={props.users} loggedInUser={props.loggedInUser}/>
                 </Col> 
+            </Row>
+            <Row>
+                <Col>
+                    <UserStats user={props.loggedInUser} />
+                </Col>
             </Row>    
             
         </Container>

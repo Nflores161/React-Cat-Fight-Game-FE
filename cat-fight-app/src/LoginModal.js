@@ -15,13 +15,13 @@ const LoginModal = (props) => {
             size="lg"
             centered>
             <Modal.Header closeButton>
-                <Modal.Title>{loginMode === "login" ? "Enter Username" : loginMode  === "register" ? "Join the Cat Fight Community" : null}</Modal.Title>
+                <Modal.Title>{loginMode === "login" ? "Let the Battle Begin" : loginMode  === "register" ? "Join Our Ranks" : null}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             {loginMode === "login" ? <LoginForm onHide={props.onHide} handleLogin={props.handleLogin} /> : loginMode  === "register" ? <RegisterForm handleRegister={props.handleRegister}/> : null}
             </Modal.Body>
             <Modal.Footer>
-                <p>{loginMode === "login" ? "New User? Register to Join" : loginMode === "register" ? "Log In to Get Started" : null}</p>
+                <p>{loginMode === "login" ? "New to Cat Fight?" : loginMode === "register" ? "Log In to Get Started" : null}</p>
                 <Button variant="outline-light" onClick={() => {
                     if(loginMode === "login") {
                         return setLoginMode("register")

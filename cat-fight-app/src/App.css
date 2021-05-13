@@ -15,6 +15,14 @@
   margin: 2em;
 }
 
+#chooseWarrior {
+  font-size: 2.5em;
+}
+
+#battlegroundHeader {
+  font-size: 2.5em;
+}
+
 /*Card Styling*/
 
 .catCardBody {
@@ -38,6 +46,27 @@
   max-width: 70%;
   margin: auto;
   text-align: center;
+}
+
+.warriorCol {
+  margin-right: 1.5em;
+  margin-left: 1.5em;
+}
+
+.warriorCard {
+  transition: all .2s ease-in-out; 
+  margin-right: 0.7em;
+  margin-left: 0.7em;
+  margin-bottom: 1.5em;
+  margin-top: 1.5em;
+}
+
+.warriorCard:hover { 
+transform: scale(1.1); 
+}
+
+.catCardContainer {
+  max-width: 80%;
 }
 
 .healthBarMaster {
@@ -78,8 +107,7 @@
 
 .attaccButtons {
   max-width: 50%;
-  margin: auto;
-  margin-top: 5px;
+  margin: 1em;
 }
 
 .buttonColumn {
@@ -92,7 +120,7 @@
 
 .leaderHeader {
   font-family: 'Press Start 2P', cursive;
-  color: rgb(148, 10, 136);
+  color: rgb(180, 14, 166);
   text-align: center;
   margin: 1em;
 }
@@ -107,14 +135,39 @@
 
 table {
   font-family: 'Press Start 2P', cursive;
+  border-spacing: 0;
+  border-collapse: 0;
+  padding: 0;
+  margin-left: 2em;
+  border: 0;
+  width: 100%;
+}
+
+tbody {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+thead {
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 th {
   font-size: x-large;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 td {
   font-size: large;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 .tableContainer {
@@ -129,6 +182,12 @@ td {
   max-width: 30%;
   align-self: center;
   margin: 3em;
+}
+
+#goHomeBtn {
+  max-width: 30%;
+  align-self: center;
+  margin: 1em;
 }
 
 .gameResultMsg {
@@ -156,4 +215,81 @@ td {
   display:flex;
   justify-content: center;
   margin-bottom: 2em;
+}
+
+#attaccButtonDiv {
+  align-self: center;
+}
+
+#superAttaccButton {
+  align-self: center;
+  margin-bottom: 2em;
+}
+
+.damage {
+  animation: shake 2.5s;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  /* 5% {transform: translate(-0.5px, -1px) rotate(-0.5deg)} */
+  10% { transform: translate(-1px, -2px) rotate(-1deg)}
+  15% {transform: translate() rotate()}
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.attacc-btn{
+  text-align: center;
+  display: inline-block;
+  margin: 1em;
+  font-weight: bold;
+  padding: 10px 10 10px 10px ;
+  background-color: rgb(0, 0, 0);
+  text-shadow: -1px -1px rgb(107, 105, 105), 1px 1px rgb(240, 9, 220);
+  color: rgb(255, 255, 255);
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em rgb(187, 7, 172); 
+  cursor: pointer;
+
+}
+
+.attacc-btn:active {
+box-shadow: none;
+position: relative;
+top: .2em;
+}
+
+.superAttacc-btn{
+  text-align: center;
+  display: inline-block;
+  margin: 1em;
+  font-weight: bold;
+  padding: 10px 10 10px 10px ;
+  background-color: rgb(240, 9, 220);
+  text-shadow: -1px -1px rgb(119, 6, 110), 1px 1px rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em rgb(119, 6, 110); 
+  cursor: pointer;
+
+}
+
+.superAttacc-btn:active {
+box-shadow: none;
+position: relative;
+top: .2em;
 }

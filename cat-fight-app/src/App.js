@@ -21,7 +21,8 @@ class App extends Component {
       loggedInUser: '',
       winner: {},
       superAttaccUsed: false,
-      showLogin: true
+      showLogin: true,
+      battleStarted: false
     }
   }
 
@@ -70,9 +71,10 @@ class App extends Component {
     let newAiPower = this.state.currentAICat.power - (this.state.currentPlayerCat.attacc * playerMultiplier)
     this.setState({
       currentAICat : {...this.state.currentAICat, power : newAiPower},
-      playerTurn: !this.state.playerTurn
+      playerTurn: !this.state.playerTurn,
+      battleStarted: true
     })
-    setTimeout(() => this.computerCatAttacc(), 1000)
+    setTimeout(() => this.computerCatAttacc(), 3000)
     } else if (this.state.currentAICat.power <= this.state.currentPlayerCat.attacc * playerMultiplier){
     this.setState({
       currentAICat : {...this.state.currentAICat, power : 0},
@@ -80,6 +82,20 @@ class App extends Component {
     })
   }
   }
+
+  // Defensive move that adds to Player's power but does no damage to opponent
+  hissDefense = () => {
+    let playerMultiplier = this.getRandomInt(1, 5)
+    let newPlayerPower = this.state.currentPlayerCat.power + (playerMultiplier * this.state.currentPlayerCat.attacc)
+    this.setState({
+      currentPlayerCat: {...this.state.currentPlayerCat, power: newPlayerPower},
+      playerTurn: !this.state.playerTurn,
+      battleStarted: true
+    })
+    setTimeout(() => this.computerCatAttacc(), 3000)
+}
+
+
 
   // similar function for computer's turn (see above notes)
   computerCatAttacc = () => {
@@ -111,7 +127,7 @@ superAttacc = () => {
       currentAICat : {...this.state.currentAICat, power : newAiPower},
       playerTurn: !this.state.playerTurn
     })
-    setTimeout(() => this.computerCatAttacc(), 1000)
+    setTimeout(() => this.computerCatAttacc(), 3000)
     } else if (this.state.currentAICat.power <= 20){
     this.setState({
       superAttaccUsed: true,
@@ -225,12 +241,13 @@ componentDidUpdate() {
       battleOver: false,
       playerTurn: true,
       winner: {},
-      superAttaccUsed: false
+      superAttaccUsed: false,
+      battleStarted: false
     })
   }
 
   render(){
-
+    console.log(this.state.currentPlayerCat.power)
     return(
       <Router >
         <div>
@@ -246,7 +263,7 @@ componentDidUpdate() {
 
           <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat}/>} />
 
-          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed}/>} />
+          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed} hissDefense={this.hissDefense} battleStarted={this.state.battleStarted}/>} />
 
         </div>
       </Router >
