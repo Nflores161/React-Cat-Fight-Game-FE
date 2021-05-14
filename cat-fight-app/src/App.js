@@ -166,6 +166,7 @@ superAttacc = () => {
     this.setState({
       superAttaccOn: true,
       superAttaccUsed: true,
+      battleStarted: true,
       currentPlayerCat : {...this.state.currentPlayerCat, power : this.state.currentPlayerCat.power - newPlayerDamage},
       currentAICat : {...this.state.currentAICat, power : newAiPower},
       playerTurn: !this.state.playerTurn
@@ -175,6 +176,7 @@ superAttacc = () => {
     this.setState({
       superAttaccOn: true,
       superAttaccUsed: true,
+      battleStarted: true,
       currentPlayerCat : {...this.state.currentPlayerCat, power : this.state.currentPlayerCat.power - newPlayerDamage},
       currentAICat : {...this.state.currentAICat, power : 0},
       battleOver: true

@@ -347,7 +347,10 @@ span {
 }
 
 .superAttaccSpin {
-  animation: shake 2.5s, spin 2.5s linear;
+  animation: 
+  shake 2.5s, 
+  spin 2.5s,
+  blink normal 1.5s infinite ease-in-out;
 }
 
 
@@ -366,4 +369,16 @@ span {
   50% { 
     transform: rotateY(90deg); transform:rotateY(90deg); 
   } 
+}
+
+@keyframes blink {
+  0% {
+      opacity:1;
+  }
+  50% {
+      opacity:0;
+  }
+  100% {
+      opacity:1;
+  }
 }

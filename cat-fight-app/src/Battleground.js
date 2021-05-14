@@ -57,12 +57,12 @@ const Battleground = (props) => {
                         <Col>
                         </Col>
                         <Col className="battlecolumn">
-                        <BattleCard id="computerCat" superAttaccOn={props.superAttaccOn} cat={props.currentAICat} playerTurn={props.playerTurn}/>
+                        <BattleCard id="computerCat" superAttaccOn={props.superAttaccOn} cat={props.currentAICat} playerTurn={props.playerTurn} battleStarted={props.battleStarted}/>
                         </Col>
                     </Row>
                     <Row sm={2}>
                         <Col className="battleColumn">
-                            <BattleCard id="playerCat" cat={props.currentPlayerCat} playerTurn={props.playerTurn} battleStarted={props.battleStarted}/>
+                            <BattleCard id="playerCat" superAttaccOn={props.superAttaccOn} cat={props.currentPlayerCat} playerTurn={props.playerTurn} battleStarted={props.battleStarted}/>
                         </Col>
                         <Col>
                         </Col>
