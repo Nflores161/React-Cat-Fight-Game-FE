@@ -11,7 +11,7 @@ const Gateway = (props) => {
                 <button className="enter-btn" onClick={() => {
                     props.playTheme()
                     props.history.push("/home")
-                    }}>This First Rule of Cat Fight...</button>
+                    }}>This Is CAT FIGHT<br/><br/><span>Click to Enter</span></button>
             </Container>
         </div>
     )

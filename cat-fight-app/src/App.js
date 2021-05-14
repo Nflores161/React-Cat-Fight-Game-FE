@@ -293,6 +293,20 @@ componentDidUpdate() {
     })
   }
 
+  submitWarrior = (warriorObj) => {
+    fetch('http://localhost:3000/cats', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(warriorObj)
+    })
+      .then(res => res.json())
+      .then(newlyCreatedWarrior => this.setState({
+        cats: [...this.state.cats, newlyCreatedWarrior]
+      }))
+  }
+
   render(){
     console.log(this.state.currentPlayerCat.power)
     console.log(this.state.currentPlayerCat.attacc)
@@ -311,7 +325,7 @@ componentDidUpdate() {
 
           {/* <Route exact path="/gameover" render={() => <Leaderboard users={this.state.users}/>} /> */}
 
-          <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat} playBattleSong={this.playBattleSong} themeSong={this.themeSong}/>} />
+          <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat} playBattleSong={this.playBattleSong} themeSong={this.themeSong} submitWarrior={this.submitWarrior}/>} />
 
           <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed} hissDefense={this.hissDefense} battleStarted={this.state.battleStarted} catHiss={this.catHiss} catClawMp3={this.catClawMp3} catBiteMp3={this.catBiteMp3} superAttaccSound={this.superAttaccSound} superAttaccThunder={this.superAttaccThunder} superAttaccOn={this.state.superAttaccOn}/>}/>
 
