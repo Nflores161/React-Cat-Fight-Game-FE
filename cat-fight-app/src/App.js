@@ -68,11 +68,11 @@ class App extends Component {
   // initial GET request for cats array and users array
   // used to set state
   componentDidMount(){
-    fetch('http://localhost:3000/cats')
+    fetch('https://evening-springs-94568.herokuapp.com/cats')
       .then(res => res.json())
       .then(catsArray => this.setState({cats: catsArray}))
     
-    fetch('http://localhost:3000/users')
+    fetch('https://evening-springs-94568.herokuapp.com/users')
       .then(res => res.json())
       .then(usersArray => this.setState({users: usersArray}))
       this.playTheme()
@@ -195,7 +195,7 @@ componentDidUpdate() {
       winner = this.state.currentPlayerCat
       loser = this.state.currentAICat
       let score = (winner.power - loser.power) * 100
-      fetch(`http://localhost:3000/users/${this.state.loggedInUser.id}`, {
+      fetch(`https://evening-springs-94568.herokuapp.com/users/${this.state.loggedInUser.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type" : "application/json"
@@ -259,7 +259,7 @@ componentDidUpdate() {
     } else if (username.length <= 0) {
       alert("Please enter valid username.")
     } else if (userExists === undefined && username.length > 0) {
-      fetch('http://localhost:3000/users', {
+      fetch('https://evening-springs-94568.herokuapp.com/users', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -294,7 +294,7 @@ componentDidUpdate() {
   }
 
   submitWarrior = (warriorObj) => {
-    fetch('http://localhost:3000/cats', {
+    fetch('https://evening-springs-94568.herokuapp.com/cats', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

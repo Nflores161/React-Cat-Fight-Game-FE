@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+Welcome to Cat Fight App!
+The world famous cat fighting arcade style web game..
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+-User must have a name registered to enter the cat fight.
 
-## Available Scripts
+-After logging in or registering a username, user can choose a warrior or create their own warrior for the cat fight battle
 
-In the project directory, you can run:
+-Choose between the various attacks or defense buttons. 
+Rules of game and functionality of buttons is contained in the battleground game.
 
-### `npm start`
+-See score on leader board after game play on the game over page.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-Choose to play again or go to main page.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Attributions: 
 
-### `npm test`
+Sound FX :
+https://orangefreesounds.com/cat-meow-hiss-sounds/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+https://orangefreesounds.com/angry-cat-sound/
 
-### `npm run build`
+https://orangefreesounds.com/angry-cat/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+https://orangefreesounds.com/angry-cat-hissing-sound/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+https://soundbible.com/538-Blast.html
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Background Images :
 
-### `npm run eject`
+Street-night made by upklyak at :
+https://www.freepik.com/free-vector/ghetto-street-night-slum-ruined-abandoned-old-buildings-with-glowing-windows-dilapidated-dwellings-stand-roadside-with-street-lamps-car-body-scatter-litter-cartoon-vector-illustration_11420894.htm#page=1&query=city%20vector&position=9
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Dungeon made by vectorpocket at : 
+https://www.freepik.com/free-vector/illustration-with-medieval-prison-cell-castle-dungeon-room-prisoners_3586246.htm#page=1&query=cage&position=19
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Castle made by upkylak at : 
+https://www.freepik.com/free-vector/abandoned-castle-throne-room-with-dragon-fly-outside-window_13196120.htm
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Swamp made by upklyak at: 
+https://www.freepik.com/free-vector/vector-landscape-with-swamp-night-forest_8117142.htm#page=1&query=game%20background&position=82
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Park made by macrovector at:
+https://www.freepik.com/free-vector/vector-landscape-with-swamp-night-forest_8117142.htm#page=1&query=game%20background&position=82
 
-## Learn More
+Desert made by vectorpocket at: 
+https://www.freepik.com/free-vector/desert-landscape-seamless-game-background-panorama-with-nature_2238361.htm#page=3&query=game+background&position=87
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Space made by upklyak at:
+https://www.freepik.com/free-vector/cosmic-background-alien-planet-deserted-landscape-with-mountains_13924256.htm#page=1&query=game%20background&position=7
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Video Game Button Styling Code by Daniel Weiner:
+https://codepen.io/DanielWeiner/pen/iFadn
