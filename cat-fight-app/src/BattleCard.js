@@ -4,17 +4,14 @@ import { Card } from 'react-bootstrap'
 const BattleCard = (props) => {
 
     return(
-        <Card id={(props.id === "computerCat") ? "computerCat" : (props.id === "playerCat") ? "playerCat" : null}>
+        <Card className="blackBackground" id={(props.id === "computerCat") ? "computerCat" : (props.id === "playerCat") ? "playerCat" : null}>
             <Card.Img className={(props.id === "computerCat" && props.playerTurn === false) ? "damage" : (props.id === "playerCat" && props.playerTurn === true && props.battleStarted === true) ? "damage" : "battleCardImage"} src={props.cat.image} alt={props.cat.name} width=".5em"/>
-            <Card.Body className="catCardBody">
+            <Card.Body className="catCardBody blackBackground">
                 <Card.Title>{props.cat.name}</Card.Title>
-                <Card.Text>Cat Warrior TBD</Card.Text>
-            </Card.Body>
-            <Card.Footer>
-                <div className="healthBarMaster">
+                <div className="healthBarMaster blackBackground">
                     <div style={{'width': `${props.cat.power}%`}} className={props.cat.power  > 66 ? "healthBarHigh" : props.cat.power > 33 ? "healthBarMedium" : props.cat.power <= 33 ? "healthBarLow" : null}>{props.cat.power}%</div>
                 </div>
-            </Card.Footer>
+            </Card.Body>
         </Card>
     )
 }

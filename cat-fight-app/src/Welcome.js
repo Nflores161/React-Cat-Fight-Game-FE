@@ -14,11 +14,9 @@ const Welcome = (props) => {
     const [modalShow, setModalShow] = useState(false)
 
     return(
-        <div>
+        <div className="blackBackground">
         <Container id="loginContainer">
-            {props.loggedInUser === '' ? <Button variant="outline-light" onClick={() => {
-                props.playTheme() 
-                setModalShow(true)}} id="loginButton" >Log In</Button> : 
+            {props.loggedInUser === '' ? <Button variant="outline-light" onClick={() => setModalShow(true)} id="loginButton" >Log In</Button> : 
             <Button variant="outline-light" onClick={() => props.handleLogout()} id="loginButton" >Log Out</Button>
             }
             

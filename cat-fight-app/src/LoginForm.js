@@ -14,24 +14,14 @@ class UserForm extends Component {
 
     render(){
         return(
-            <div>
-                <form onSubmit={(event) => {
+                <form className="blackBackground" onSubmit={(event) => {
                     event.preventDefault()
                     this.props.onHide()
                     this.props.handleLogin(this.state.loginName)
                     }}>
-                    <input type="text" name="loginName" onChange={(event) => this.setState({loginName: event.target.value})} value={this.state.loginName}/>
-                    <input type="submit" value="Log In" />
+                    <input className="blackBackground" type="text" name="loginName" onChange={(event) => this.setState({loginName: event.target.value})} value={this.state.loginName}/>
+                    <input className="blackBackground" type="submit" value="Log In" />
                 </form>
-{/* 
-                <form onSubmit={(event) => {
-                    event.preventDefault()
-                    this.props.handleRegister(this.state.registerName)
-                    }}>
-                    <input type="text" name="registerName" onChange={(event) => this.setState({registerName: event.target.value})} value={this.state.registerName}/>
-                    <input type="submit" value="Register" />
-                </form> */}
-            </div>
             )
     }
 }

@@ -8,6 +8,8 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import GameOver from './GameOver'
 import ThemeSong from './Cat-Scratcher-Main.mp3'
 import BattleSong from './Cat-Battle-Song.mp3'
+import Gateway from './Gateway'
+import CatHiss from './Angry-cat-hissing-sound.mp3'
 
 class App extends Component {
 
@@ -23,7 +25,6 @@ class App extends Component {
       loggedInUser: '',
       winner: {},
       superAttaccUsed: false,
-      showLogin: true,
       battleStarted: false
     }
     this.themeSong = new Audio(ThemeSong);
@@ -34,6 +35,11 @@ class App extends Component {
     this.battleSong.addEventListener("ended", () => {
       this.battleSong.play()
     })
+    this.catHiss= new Audio(CatHiss);
+    // this.catHiss.addEventListener("ended", () => {
+    //   this.catHiss.play()
+    // })
+
   }
 
   playTheme = () => {
@@ -111,7 +117,8 @@ class App extends Component {
   // Defensive move that adds to Player's power but does no damage to opponent
   hissDefense = () => {
     let playerMultiplier = this.getRandomInt(1, 5)
-    let newPlayerPower = this.state.currentPlayerCat.power + (playerMultiplier * this.state.currentPlayerCat.attacc)
+    let playerReplenish = playerMultiplier * this.state.currentPlayerCat.attacc
+    let newPlayerPower = parseInt(this.state.currentPlayerCat.power, 10) + parseInt(playerReplenish, 10)
     this.setState({
       currentPlayerCat: {...this.state.currentPlayerCat, power: newPlayerPower},
       playerTurn: !this.state.playerTurn,
@@ -273,12 +280,15 @@ componentDidUpdate() {
 
   render(){
     console.log(this.state.currentPlayerCat.power)
+    console.log(this.state.currentPlayerCat.attacc)
     return(
       <Router >
         <div>
           {this.state.battleOver ? console.log("GAME OVER RETURN TO HOOMAN") : null}
 
-          <Route exact path="/" render={(routerProps) => <Welcome {...routerProps} handleLogin={this.handleLogin} handleRegister={this.handleRegister} users={this.state.users} loggedInUser={this.state.loggedInUser} handleLogout={this.handleLogout} playTheme={this.playTheme}/>} showLogin={this.state.showLogin} />
+          <Route exact path="/" render={(routerProps) => <Gateway {...routerProps} playTheme={this.playTheme} />} />
+          
+          <Route exact path="/home" render={(routerProps) => <Welcome {...routerProps} handleLogin={this.handleLogin} handleRegister={this.handleRegister} users={this.state.users} loggedInUser={this.state.loggedInUser} handleLogout={this.handleLogout}/>} />
           
           <Route exact path="/leaderboard" render={() => <Leaderboard users={this.state.users} loggedInUser={this.state.loggedInUser}/>}/>
 
@@ -288,7 +298,7 @@ componentDidUpdate() {
 
           <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat} playBattleSong={this.playBattleSong} themeSong={this.themeSong}/>} />
 
-          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed} hissDefense={this.hissDefense} battleStarted={this.state.battleStarted}/>} />
+          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed} hissDefense={this.hissDefense} battleStarted={this.state.battleStarted} catHiss={this.catHiss}/>} />
 
         </div>
       </Router >

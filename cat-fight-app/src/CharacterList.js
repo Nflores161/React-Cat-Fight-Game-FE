@@ -8,16 +8,18 @@ class CharacterList extends Component {
 
     render(){
         return(
-            <Container className="catCardContainer">
+            <div className="blackBackground">
+            <Container className="catCardContainer blackBackground">
                 <h3 id="chooseWarrior" className="headerText">Choose Your Warrior</h3>
                 
                 
-                <Row lg={3}>
+                <Row className="blackBackground" lg={3}>
                     {this.props.cats.map(cat => <CharacterCard key={cat.id} cat={cat} assignCat={this.props.assignCat} {...this.props.routerProps} playBattleSong={this.props.playBattleSong} themeSong={this.props.themeSong}/>)}
                 </Row>
                 
                 
             </Container>
+            </div>
         )
     }
 }

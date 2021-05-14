@@ -13,12 +13,12 @@ class RegisterForm extends Component {
 
     render(){
         return(
-            <form onSubmit={(event) => {
+            <form className="blackBackground" onSubmit={(event) => {
                 event.preventDefault()
                 this.props.handleRegister(this.state.registerName)
                 }}>
-                <input type="text" name="registerName" onChange={(event) => this.setState({registerName: event.target.value})} value={this.state.registerName}/>
-                <input type="submit" value="Register" />
+                <input className="blackBackground" type="text" name="registerName" onChange={(event) => this.setState({registerName: event.target.value})} value={this.state.registerName}/>
+                <input className="blackBackground" type="submit" value="Register" />
             </form>
         )
     }

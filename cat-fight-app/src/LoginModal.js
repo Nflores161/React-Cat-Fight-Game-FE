@@ -10,17 +10,17 @@ const LoginModal = (props) => {
     const [loginMode, setLoginMode] = useState("login")
 
     return(
-        <Modal
+        <Modal className="blackBackground"
             {...props}
             size="lg"
             centered>
-            <Modal.Header closeButton>
+            <Modal.Header className="blackBackground" closeButton>
                 <Modal.Title>{loginMode === "login" ? "Let the Battle Begin" : loginMode  === "register" ? "Join Our Ranks" : null}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="blackBackground">
             {loginMode === "login" ? <LoginForm onHide={props.onHide} handleLogin={props.handleLogin} /> : loginMode  === "register" ? <RegisterForm handleRegister={props.handleRegister}/> : null}
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="blackBackground">
                 <p>{loginMode === "login" ? "New to Cat Fight?" : loginMode === "register" ? "Log In to Get Started" : null}</p>
                 <Button variant="outline-light" onClick={() => {
                     if(loginMode === "login") {

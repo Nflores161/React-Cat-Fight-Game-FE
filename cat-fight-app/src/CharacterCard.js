@@ -4,10 +4,10 @@ import Col from 'react-bootstrap/Col'
 
 const CharacterCard = (props) => {
     return(
-        <Col>
-            <Card className="warriorCard">
+        <Col className="blackBackground">
+            <Card className="warriorCard blackBackground">
                 <Card.Img className="catCardImage" src={props.cat.image} alt={props.cat.name} />
-                <Card.Body className="catCardBody">
+                <Card.Body className="catCardBody blackBackground">
                 <Card.Title>{props.cat.name}</Card.Title>
                 <Card.Text>Cat Warrior TBD</Card.Text>
                 <Button variant="outline-light" onClick={() => {
