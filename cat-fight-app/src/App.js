@@ -10,6 +10,10 @@ import ThemeSong from './Cat-Scratcher-Main.mp3'
 import BattleSong from './Cat-Battle-Song.mp3'
 import Gateway from './Gateway'
 import CatHiss from './Angry-cat-hissing-sound.mp3'
+import CatClawAudio from './Angry-cat-Squeel.wav'
+import CatBiteAudio from './Angry-cat-Bite.mp3'
+import SuperAttaccSound from './SuperAttaccSound.mp3'
+import SuperAttaccThunderClap from './SuperAttaccThunderClap.mp3'
 
 class App extends Component {
 
@@ -25,7 +29,8 @@ class App extends Component {
       loggedInUser: '',
       winner: {},
       superAttaccUsed: false,
-      battleStarted: false
+      battleStarted: false,
+      superAttaccOn: false
     }
     this.themeSong = new Audio(ThemeSong);
     this.themeSong.addEventListener("ended", () => {
@@ -36,10 +41,14 @@ class App extends Component {
       this.battleSong.play()
     })
     this.catHiss= new Audio(CatHiss);
-    // this.catHiss.addEventListener("ended", () => {
-    //   this.catHiss.play()
-    // })
 
+    this.catClawMp3 = new Audio(CatClawAudio);
+
+    this.catBiteMp3 = new Audio(CatBiteAudio);
+
+    this.superAttaccSound = new Audio(SuperAttaccSound);
+    
+    this.superAttaccThunder = new Audio(SuperAttaccThunderClap);
   }
 
   playTheme = () => {
@@ -135,11 +144,13 @@ class App extends Component {
     if (this.state.currentPlayerCat.power > this.state.currentAICat.attacc * AIMultiplier ) {
     let newPlayerPower = this.state.currentPlayerCat.power - (this.state.currentAICat.attacc * AIMultiplier)
     this.setState({
+      superAttaccOn: false,
       currentPlayerCat : {...this.state.currentPlayerCat, power : newPlayerPower},
       playerTurn: !this.state.playerTurn
     })
   } else if (this.state.currentPlayerCat.power <= this.state.currentAICat.attacc * AIMultiplier){
     this.setState({
+      superAttaccOn: false,
       currentPlayerCat : {...this.state.currentPlayerCat, power : 0},
       battleOver: true
     })
@@ -148,12 +159,12 @@ class App extends Component {
 
 // Creates a Super Attacc with higher damages that also inflicts damage on users power
 superAttacc = () => {
-    alert("WARNING: USE WITH CAUTION - SUPER ATTACC WILL INFLICT 20 DAMAGE TO OPPONENT AS WELL AS DEPLETE YOUR WARRIORS POWER")
     let newPlayerDamage = this.getRandomInt(1,4) * 5
     console.log(newPlayerDamage)
     if (this.state.currentAICat.power > 20) {  
     let newAiPower = this.state.currentAICat.power - 20
     this.setState({
+      superAttaccOn: true,
       superAttaccUsed: true,
       currentPlayerCat : {...this.state.currentPlayerCat, power : this.state.currentPlayerCat.power - newPlayerDamage},
       currentAICat : {...this.state.currentAICat, power : newAiPower},
@@ -162,6 +173,7 @@ superAttacc = () => {
     setTimeout(() => this.computerCatAttacc(), 3000)
     } else if (this.state.currentAICat.power <= 20){
     this.setState({
+      superAttaccOn: true,
       superAttaccUsed: true,
       currentPlayerCat : {...this.state.currentPlayerCat, power : this.state.currentPlayerCat.power - newPlayerDamage},
       currentAICat : {...this.state.currentAICat, power : 0},
@@ -274,7 +286,8 @@ componentDidUpdate() {
       playerTurn: true,
       winner: {},
       superAttaccUsed: false,
-      battleStarted: false
+      battleStarted: false,
+      superAttaccOn: false
     })
   }
 
@@ -298,7 +311,7 @@ componentDidUpdate() {
 
           <Route exact path="/characterlist" render={(routerProps) => <CharacterList routerProps={routerProps} cats={this.state.cats} assignCat={this.assignCat} playBattleSong={this.playBattleSong} themeSong={this.themeSong}/>} />
 
-          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed} hissDefense={this.hissDefense} battleStarted={this.state.battleStarted} catHiss={this.catHiss}/>} />
+          <Route exact path="/battleground" render={(routerProps) => <Battleground {...routerProps} battleOver={this.state.battleOver} currentAICat={this.state.currentAICat} currentPlayerCat={this.state.currentPlayerCat} playerCatAttacc={this.playerCatAttacc} playerTurn={this.state.playerTurn} superAttacc={this.superAttacc} superAttaccUsed={this.state.superAttaccUsed} hissDefense={this.hissDefense} battleStarted={this.state.battleStarted} catHiss={this.catHiss} catClawMp3={this.catClawMp3} catBiteMp3={this.catBiteMp3} superAttaccSound={this.superAttaccSound} superAttaccThunder={this.superAttaccThunder} superAttaccOn={this.state.superAttaccOn}/>}/>
 
         </div>
       </Router >

@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 const Gateway = (props) => {
 
     return(
-        <div className="blackBackground">
+        <div className="blackBackground fullPageHeight">
             <Container id="gatewayContainer" className="blackBackground">
                 {console.log(props)}
                 <button className="enter-btn" onClick={() => {

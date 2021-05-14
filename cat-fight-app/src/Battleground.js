@@ -4,9 +4,8 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import {useState} from 'react'
-import Button from 'react-bootstrap/Button'
 import InstructionModal from './InstructionModal'
-import CatBite from './Cat-Bite.png'
+// import CatBite from './Cat-Bite.png'
 import Desert from './Background-Images/Desert-Background.jpg'
 import Dungeon from './Background-Images/Dungeon-Background.jpg'
 import Alley from './Background-Images/Night-Street-Background.jpg'
@@ -58,7 +57,7 @@ const Battleground = (props) => {
                         <Col>
                         </Col>
                         <Col className="battlecolumn">
-                        <BattleCard id="computerCat" cat={props.currentAICat} playerTurn={props.playerTurn}/>
+                        <BattleCard id="computerCat" superAttaccOn={props.superAttaccOn} cat={props.currentAICat} playerTurn={props.playerTurn}/>
                         </Col>
                     </Row>
                     <Row sm={2}>
@@ -71,13 +70,22 @@ const Battleground = (props) => {
                     <Row sm={2}>
                         <Col className="buttonColumn">
                             <div id="attaccButtonDiv">
-                                {props.playerTurn === true ? (<button className="attaccButtons attacc-btn" onClick={() => props.playerCatAttacc()}>CLAW</button>) : <p></p>}
-                                {props.playerTurn === true ? (<button className="attaccButtons attacc-btn" onClick={() => props.playerCatAttacc()}>BITE</button>) : <p>PROTECC</p>}
+                                {props.playerTurn === true ? (<button className="attaccButtons attacc-btn" onClick={() => {
+                                    props.playerCatAttacc()
+                                    props.catClawMp3.play()}}>CLAW</button>) : <p></p>}
+                                {props.playerTurn === true ? (<button className="attaccButtons attacc-btn" onClick={() => {
+                                    props.playerCatAttacc()
+                                    props.catBiteMp3.play()}
+                                    }>BITE</button>) : <p>PROTECC</p>}
                                 {props.playerTurn === true ? (<button className="attaccButtons attacc-btn" onClick={() => {
                                     props.hissDefense() 
                                     props.catHiss.play()}}>HISS</button>) : <p></p>}
                             </div>
-                            {(props.playerTurn === true && props.superAttaccUsed === false) ? (<button className="superAttacc-btn" id="superAttaccButton" onClick={() => props.superAttacc()}>SuperATTACC</button>) : null}
+                            {(props.playerTurn === true && props.superAttaccUsed === false) ? (<button className="superAttacc-btn" id="superAttaccButton" onClick={() => {
+                                props.superAttacc()
+                                props.superAttaccSound.play()
+                                props.superAttaccThunder.play()
+                                }}>SuperATTACC</button>) : null}
                         </Col>
                         <Col>
                         </Col>

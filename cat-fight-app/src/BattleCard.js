@@ -5,7 +5,7 @@ const BattleCard = (props) => {
 
     return(
         <Card className="blackBackground" id={(props.id === "computerCat") ? "computerCat" : (props.id === "playerCat") ? "playerCat" : null}>
-            <Card.Img className={(props.id === "computerCat" && props.playerTurn === false) ? "damage" : (props.id === "playerCat" && props.playerTurn === true && props.battleStarted === true) ? "damage" : "battleCardImage"} src={props.cat.image} alt={props.cat.name} width=".5em"/>
+            <Card.Img className={(props.id === "computerCat" && props.playerTurn === false && props.superAttaccOn === false) ? "damage" : (props.id === "playerCat" && props.playerTurn === true && props.battleStarted === true && props.superAttaccOn === false) ? "damage" : (props.id === "computerCat" && props.playerTurn === false && props.superAttaccOn === true ) ? "superAttaccSpin" : "battleCardImage blackBackground"} src={props.cat.image} alt={props.cat.name} width=".5em"/>
             <Card.Body className="catCardBody blackBackground">
                 <Card.Title>{props.cat.name}</Card.Title>
                 <div className="healthBarMaster blackBackground">

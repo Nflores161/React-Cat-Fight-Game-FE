@@ -345,3 +345,25 @@ top: .2em;
 span {
   color: rgb(240, 9, 220)
 }
+
+.superAttaccSpin {
+  animation: shake 2.5s, spin 2.5s linear;
+}
+
+
+@keyframes spin { 
+  50% { 
+    transform: 
+    rotateY(90deg); 
+  } 
+}
+@keyframes spin { 
+  50% { 
+    transform: rotateY(90deg); 
+  } 
+}
+@keyframes spin { 
+  50% { 
+    transform: rotateY(90deg); transform:rotateY(90deg); 
+  } 
+}
