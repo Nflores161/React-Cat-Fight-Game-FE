@@ -39,7 +39,6 @@ body, html {
 }
 
 .battleCardImage {
-  width: 10em;
   height: 20em;
   object-fit: cover;
 }
