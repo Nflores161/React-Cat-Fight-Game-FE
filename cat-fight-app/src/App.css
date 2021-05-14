@@ -34,7 +34,6 @@ body, html {
 }
 
 .catCardImage {
-  width: 5em;
   height: 15em;
   object-fit: cover;
 }
